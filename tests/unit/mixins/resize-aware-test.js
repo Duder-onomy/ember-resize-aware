@@ -3,6 +3,7 @@ import ResizeAwareMixin from 'ember-resize-aware/mixins/resize-aware';
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent, test } from 'ember-qunit';
 import { set } from '@ember/object';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('Unit | Mixin | resize-aware', {
   integration: true,
@@ -29,12 +30,11 @@ test('didResize hook is on the object', function(assert) {
 });
 
 test('it fires "didResize"  when the window is resized', function(assert) {
+  assert.expect(2);
+
   let didResizeCallCount = 0;
 
-  this.didResize = function() {
-    didResizeCallCount++;
-  };
-
+  this.didResize = function() { didResizeCallCount++; };
   this.debounceRate = 0;
 
   this.render(hbs`{{resize-aware-component didResize=didResize debounceRate=debounceRate}}`);
@@ -43,10 +43,18 @@ test('it fires "didResize"  when the window is resized', function(assert) {
   let evt = new window.Event('resize');
 
   window.dispatchEvent(evt);
-  assert.equal(didResizeCallCount, 1, 'didResize called 1 time on event firing');
 
-  set(resizeAwareComponent, '_previousWidth', 0);
+  return wait()
+    .then(() => {
+      assert.equal(didResizeCallCount, 1, 'didResize called 1 time on event firing');
 
-  window.dispatchEvent(evt);
-  assert.equal(didResizeCallCount, 2, 'didResize called another time on event firing again');
+      set(resizeAwareComponent, '_previousWidth', 0);
+
+      window.dispatchEvent(evt);
+
+      return wait();
+    })
+    .then(() => {
+      assert.equal(didResizeCallCount, 2, 'didResize called another time on event firing again');
+    });
 });

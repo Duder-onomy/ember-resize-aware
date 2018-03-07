@@ -1,8 +1,12 @@
 ember-resize-aware
 ==============================================================================
 
+[![Build Status](https://travis-ci.org/Duder-onomy/ember-resize-aware.svg?branch=master)](https://travis-ci.org/Duder-onomy/ember-resize-aware)
+
 Simplified and updated version of `ember-resize`.
 Provides a mixin that you can use on your components, your components will have a `didResize` event called on them when appropriate.
+
+Uses [ember-singularity](https://github.com/trentmwillis/ember-singularity) under the hood for efficient and massively gangster event handling. 
 
 Installation
 ------------------------------------------------------------------------------
@@ -24,8 +28,8 @@ import ResizeAware from 'ember-resize-aware/mixins/resize-aware';
 export default Component.extend(ResizeAware, {
   debounceRate: 400, // You can optionally set the debounce rate, the default is 200, 0 during testing.
 
-  didResize(width, height, event) {
-    // YOU GET THE WIDTH! AND THE HEIGHT! AND THE ORIGINAL EVENT!
+  didResize(width, height) {
+    // YOU GET THE WIDTH! AND THE HEIGHT! BOOM!
   },
 });
 ```
