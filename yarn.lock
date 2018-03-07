@@ -2241,6 +2241,12 @@ ember-router-generator@^1.2.3:
   dependencies:
     recast "^0.11.3"
 
+ember-singularity@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ember-singularity/-/ember-singularity-1.2.0.tgz#d63fdca74ba6ef1c3ab9932e2ddead2bb36973c4"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+
 ember-source-channel-url@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ember-source-channel-url/-/ember-source-channel-url-1.0.1.tgz#93517ccbd97a26220184b7986a5325317065308b"

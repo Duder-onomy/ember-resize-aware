@@ -1,7 +1,8 @@
 ember-resize-aware
 ==============================================================================
 
-[Short description of the addon.]
+Simplified and updated version of `ember-resize`.
+Provides a mixin that you can use on your components, your components will have a `didResize` event called on them when appropriate.
 
 Installation
 ------------------------------------------------------------------------------
@@ -14,7 +15,20 @@ ember install ember-resize-aware
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+Just mix this sucker into a component or any ember object with the `didInsertElement` lifecycle hooks.
+
+```javascript
+import Component from '@ember/component';
+import ResizeAware from 'ember-resize-aware/mixins/resize-aware';
+
+export default Component.extend(ResizeAware, {
+  debounceRate: 400, // You can optionally set the debounce rate, the default is 200, 0 during testing.
+
+  didResize(width, height, event) {
+    // YOU GET THE WIDTH! AND THE HEIGHT! AND THE ORIGINAL EVENT!
+  },
+});
+```
 
 
 Contributing
