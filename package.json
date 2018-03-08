@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "ember-cli-babel": "^6.6.0",
-    "ember-singularity": "^1.2.0"
+    "ember-singularity": "Duder-onomy/ember-singularity#soft-unregister"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
