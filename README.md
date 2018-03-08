@@ -3,6 +3,8 @@ ember-resize-aware
 
 [![Build Status](https://travis-ci.org/Duder-onomy/ember-resize-aware.svg?branch=master)](https://travis-ci.org/Duder-onomy/ember-resize-aware)
 
+[![npm version](https://badge.fury.io/js/ember-resize-aware.svg)](https://badge.fury.io/js/ember-resize-aware)
+
 Simplified and updated version of `ember-resize`.
 Provides a mixin that you can use on your components, your components will have a `didResize` event called on them when appropriate.
 
