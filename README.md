@@ -1,6 +1,8 @@
 ember-resize-aware
 ==============================================================================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Duder-onomy/ember-resize-aware.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/Duder-onomy/ember-resize-aware.svg?branch=master)](https://travis-ci.org/Duder-onomy/ember-resize-aware)
 
 [![npm version](https://badge.fury.io/js/ember-resize-aware.svg)](https://badge.fury.io/js/ember-resize-aware)
