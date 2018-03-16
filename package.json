@@ -1,6 +1,6 @@
 {
   "name": "ember-resize-aware",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ember Component mixin to notify of size changes.",
   "keywords": [
     "ember-addon"
