@@ -1,7 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { inject as service } from '@ember/service';
 import { get, setProperties } from '@ember/object';
-import { debounce, bind, next } from '@ember/runloop';
+import { debounce, next } from '@ember/runloop';
 import { tryInvoke } from '@ember/utils';
 import Ember from 'ember';
 
@@ -18,7 +18,7 @@ export default Mixin.create({
 
   didInsertElement(...args) {
     this._super(...args);
-    this._handleResizeEvent = bind(this, this._handleResizeEvent);
+    this._handleResizeEvent = this._handleResizeEvent.bind(this);
     get(this, 'unifiedEventHandler').register('window', 'resize', this._handleResizeEvent);
   },
 
