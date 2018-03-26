@@ -16,13 +16,9 @@ export default Mixin.create({
   _previousWidth: null,
   _previousHeight: null,
 
-  init(...args) {
-    this._handleResizeEvent = bind(this, this._handleResizeEvent);
-    this._super(...args);
-  },
-
   didInsertElement(...args) {
     this._super(...args);
+    this._handleResizeEvent = bind(this, this._handleResizeEvent);
     get(this, 'unifiedEventHandler').register('window', 'resize', this._handleResizeEvent);
   },
 
@@ -42,7 +38,7 @@ export default Mixin.create({
     const newHeight = Math.floor(boundingRect.height);
 
     if ((get(this, '_previousWidth') !== newWidth) || (get(this, '_previousHeight') !== newHeight)) {
-      next(this, () => tryInvoke(this, 'didResize', [newWidth, newHeight]));
+      next(this, () => !get(this, 'isDestroyed') && tryInvoke(this, 'didResize', [newWidth, newHeight]));
       setProperties(this, {
         _previousWidth: newWidth,
         _previousHeight: newHeight

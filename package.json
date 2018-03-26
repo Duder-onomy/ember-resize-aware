@@ -1,6 +1,6 @@
 {
   "name": "ember-resize-aware",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Ember Component mixin to notify of size changes.",
   "keywords": [
     "ember-addon"
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "ember-cli-babel": "^6.6.0",
-    "ember-singularity": "^1.2.0"
+    "ember-singularity": "^1.2.1"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
