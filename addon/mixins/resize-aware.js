@@ -9,6 +9,7 @@ const isTesting = Ember.testing;
 
 export default Mixin.create({
   unifiedEventHandler: service(),
+  resizeObserver: service(),
 
   didResize(/*width, height*/) {}, // Overridden in subclass
   debounceRate: 200, // Overridden in subclass
@@ -18,8 +19,13 @@ export default Mixin.create({
 
   didInsertElement(...args) {
     this._super(...args);
-    this._handleResizeEvent = this._handleResizeEvent.bind(this);
-    get(this, 'unifiedEventHandler').register('window', 'resize', this._handleResizeEvent);
+
+    if (window.ResizeObserver) {
+      get(this, 'resizeObserver').register(this, this._handleResizeEvent);
+    } else {
+      this._handleResizeEvent = this._handleResizeEvent.bind(this);
+      get(this, 'unifiedEventHandler').register('window', 'resize', this._handleResizeEvent);
+    }
   },
 
   willDestroyElement(...args) {
@@ -27,15 +33,19 @@ export default Mixin.create({
     get(this, 'unifiedEventHandler').unregister('window', 'resize', this._handleResizeEvent);
   },
 
-  _handleResizeEvent() {
-    debounce(this, this._debouncedResizeEvent, isTesting ? 0 : get(this, 'debounceRate'));
+  _handleResizeEvent(newWidth, newHeight) {
+    debounce(this, this._debouncedResizeEvent, newWidth, newHeight, isTesting ? 0 : get(this, 'debounceRate'));
   },
 
-  _debouncedResizeEvent() {
-    const boundingRect = this.element.getBoundingClientRect();
+  _debouncedResizeEvent(newWidth, newHeight) {
+    // nativeResize observers will give us the clientRect
+    // So lets avoid calling getBoundingClientRect as that will force layout calculation
+    if (!newWidth && !newHeight) {
+      const boundingRect = this.element.getBoundingClientRect();
 
-    const newWidth = Math.floor(boundingRect.width);
-    const newHeight = Math.floor(boundingRect.height);
+      newWidth = Math.floor(boundingRect.width);
+      newHeight = Math.floor(boundingRect.height);
+    }
 
     if ((get(this, '_previousWidth') !== newWidth) || (get(this, '_previousHeight') !== newHeight)) {
       next(this, () => !get(this, 'isDestroyed') && tryInvoke(this, 'didResize', [newWidth, newHeight]));
