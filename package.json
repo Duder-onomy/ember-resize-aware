@@ -17,8 +17,7 @@
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember serve",
-    "test": "ember try:each",
-    "test:all": "ember try:testall"
+    "test": "ember try:each"
   },
   "dependencies": {
     "ember-cli-babel": "^6.6.0",
@@ -44,8 +43,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-resolver": "^4.0.0",
     "ember-source": "~3.1.0",
-    "ember-source-channel-url": "^1.0.1",
-    "ember-try": "^0.2.23",
+    "ember-try": "^1.0.0-beta.3",
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-node": "^6.0.1",
     "loader.js": "^4.2.3"
@@ -55,6 +53,9 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoUrl": "https://duder-onomy.github.io/ember-resize-aware/"
+    "demoUrl": "https://duder-onomy.github.io/ember-resize-aware/",
+    "versionCompatibility": {
+      "ember": ">2.16 <= 3.1.0"
+    }
   }
 }
