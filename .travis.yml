@@ -17,7 +17,7 @@ env:
     # See https://git.io/vdao3 for details.
     - JOBS=1
   matrix:
-    - SCRIPT=test:all
+    - SCRIPT=test
     # - SCRIPT=test:fastboot
     # - SCRIPT=test:node
 
