@@ -1,7 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { inject as service } from '@ember/service';
 import { get, setProperties } from '@ember/object';
-import { debounce, next } from '@ember/runloop';
+import { debounce, next, scheduleOnce } from '@ember/runloop';
 import { tryInvoke } from '@ember/utils';
 import Ember from 'ember';
 
@@ -19,7 +19,7 @@ export default Mixin.create({
   didInsertElement(...args) {
     this._super(...args);
     this._handleResizeEvent = this._handleResizeEvent.bind(this);
-    get(this, 'unifiedEventHandler').register('window', 'resize', this._handleResizeEvent);
+    scheduleOnce('afterRender', this, () => get(this, 'unifiedEventHandler').register('window', 'resize', this._handleResizeEvent));
   },
 
   willDestroyElement(...args) {
@@ -32,17 +32,19 @@ export default Mixin.create({
   },
 
   _debouncedResizeEvent() {
-    const boundingRect = this.element.getBoundingClientRect();
+    if (this.element) {
+      const boundingRect = this.element.getBoundingClientRect();
 
-    const newWidth = Math.floor(boundingRect.width);
-    const newHeight = Math.floor(boundingRect.height);
+      const newWidth = Math.floor(boundingRect.width);
+      const newHeight = Math.floor(boundingRect.height);
 
-    if ((get(this, '_previousWidth') !== newWidth) || (get(this, '_previousHeight') !== newHeight)) {
-      next(this, () => !get(this, 'isDestroyed') && tryInvoke(this, 'didResize', [newWidth, newHeight]));
-      setProperties(this, {
-        _previousWidth: newWidth,
-        _previousHeight: newHeight
-      });
+      if ((get(this, '_previousWidth') !== newWidth) || (get(this, '_previousHeight') !== newHeight)) {
+        next(this, () => !get(this, 'isDestroyed') && tryInvoke(this, 'didResize', [newWidth, newHeight]));
+        setProperties(this, {
+          _previousWidth: newWidth,
+          _previousHeight: newHeight
+        });
+      }
     }
   }
 });
