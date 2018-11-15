@@ -13,7 +13,7 @@ moduleForComponent('Unit | Mixin | resize-aware', {
     this.register('component:resize-aware-component',
       Component.extend(ResizeAwareMixin, {
         init() {
-          this._super(...arguments);
+          this._super(arguments);
           testContext.componentInstance = this;
         }
       })
