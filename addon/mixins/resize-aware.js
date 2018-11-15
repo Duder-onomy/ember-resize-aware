@@ -5,8 +5,6 @@ import { debounce, next, scheduleOnce } from '@ember/runloop';
 import { tryInvoke } from '@ember/utils';
 import Ember from 'ember';
 
-const isTesting = Ember.testing;
-
 export default Mixin.create({
   unifiedEventHandler: service(),
 
@@ -28,7 +26,7 @@ export default Mixin.create({
   },
 
   _handleResizeEvent() {
-    debounce(this, this._debouncedResizeEvent, isTesting ? 0 : get(this, 'debounceRate'));
+    debounce(this, this._debouncedResizeEvent, Ember.testing ? 0 : get(this, 'debounceRate'));
   },
 
   _debouncedResizeEvent() {
