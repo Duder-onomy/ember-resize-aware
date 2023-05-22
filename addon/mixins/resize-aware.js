@@ -2,7 +2,6 @@ import Mixin from '@ember/object/mixin';
 import { inject as service } from '@ember/service';
 import { get, setProperties } from '@ember/object';
 import { debounce, next, scheduleOnce } from '@ember/runloop';
-import { tryInvoke } from '@ember/utils';
 import Ember from 'ember';
 
 export default Mixin.create({
@@ -37,7 +36,7 @@ export default Mixin.create({
       const newHeight = Math.floor(boundingRect.height);
 
       if ((get(this, '_previousWidth') !== newWidth) || (get(this, '_previousHeight') !== newHeight)) {
-        next(this, () => !get(this, 'isDestroyed') && tryInvoke(this, 'didResize', [newWidth, newHeight]));
+        next(this, () => !get(this, 'isDestroyed') && this.didResize?.(newWidth, newHeight));
         setProperties(this, {
           _previousWidth: newWidth,
           _previousHeight: newHeight
